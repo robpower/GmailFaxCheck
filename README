@@ -1,0 +1,35 @@
+############################
+# GmailFaxCheck README Info #
+############################
+#################################################################
+#   Program Name: GmailFaxCheck					#
+#		  (FaxGratis project)				#		
+#	     URL: https://github.com/robpower/GmailFaxCheck   	#
+#        Version: 2.1.0						#
+#  Last Modified: 24/12/2012					#
+#    Description: Perl script that checks for new received 	#
+#		  fax2email message saved in a Gmail Label 	#
+#		  and print them; 				#
+#		  can also check for Faxator receipts.		#
+#								#		
+#         Author: Rob Power					#
+#	 Website: http://blog.robpower.info 			#
+#		  https://github.com/robpower			#
+#		  https://www.gitorious.org/~robpower 		#
+#################################################################
+#
+#    Copyright (C) Rob Power 2012
+#    This file is part of FaxGratis/GmailFaxCheck.
+#
+#    FaxGratis/GmailFaxCheck is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    FaxGratis/GmailFaxCheck is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with FaxGratis/GmailFaxCheck.  If not, see <http://www.gnu.org/licenses/>.
