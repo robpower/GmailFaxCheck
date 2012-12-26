@@ -1,0 +1,11 @@
+2011-12-28  Rob Power  <dev [at] robpower.info>
+
+    Release 1.1.0
+    
+    * GmailFaxCheck.py: added Faxator receipt 
+
+    * LICENSE: added GPLv3
+
+    * README: added first draft
+
+    * INSTALL: added first draft (incomplete)

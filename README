@@ -1,35 +1,82 @@
-############################
-# GmailFaxCheck README Info #
-############################
-#################################################################
-#   Program Name: GmailFaxCheck					#
-#		  (FaxGratis project)				#		
-#	     URL: https://github.com/robpower/GmailFaxCheck   	#
-#        Version: 2.1.0						#
-#  Last Modified: 24/12/2012					#
-#    Description: Perl script that checks for new received 	#
-#		  fax2email message saved in a Gmail Label 	#
-#		  and print them; 				#
-#		  can also check for Faxator receipts.		#
-#								#		
-#         Author: Rob Power					#
-#	 Website: http://blog.robpower.info 			#
-#		  https://github.com/robpower			#
-#		  https://www.gitorious.org/~robpower 		#
-#################################################################
-#
-#    Copyright (C) Rob Power 2012
-#    This file is part of FaxGratis/GmailFaxCheck.
-#
-#    FaxGratis/GmailFaxCheck is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU General Public License as published by
-#    the Free Software Foundation, either version 2 of the License, or
-#    (at your option) any later version.
-#
-#    FaxGratis/GmailFaxCheck is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU General Public License for more details.
-#
-#    You should have received a copy of the GNU General Public License
-#    along with FaxGratis/GmailFaxCheck.  If not, see <http://www.gnu.org/licenses/>.
+
+			GmailFaxCheck README
+
+--------------------------------------------------------------------------------------
+	DISCLAIMER:
+
+    Copyright (C) Rob Power 2011-2012
+    This file is part of FaxGratis/GmailFaxCheck.
+
+    FaxGratis/GmailFaxCheck is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    FaxGratis/GmailFaxCheck is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with FaxGratis/GmailFaxCheck.  If not, see <http://www.gnu.org/licenses/>.
+---------------------------------------------------------------------------------------
+
+  What is it?
+  -----------
+
+  GmailFaxCheck is a Perl script designed for Linux (Tested on Ubuntu Server
+  10.04 and up) to automate printing of incoming fax at a [free] fax-to-email
+  number and/or of fax-sent receipt from free Faxator service.
+  GmailFaxCheck is part of FaxGratis project, which lets you have a completely
+  free, full and easy to use send/receive fax solution with Geografical Numbers,
+  simply using your PC and a printer.
+  (NB: may depend on availability of third party free providers in your country).
+
+  The Latest Version
+  ------------------
+
+  Latest version is available as .zip file from GitHub at
+  https://github.com/robpower/GmailFaxCheck/archive/master.zip
+  or
+  directly through git repository
+  git://github.com/robpower/GmailFaxCheck.git
+
+  TODO
+  ----
+
+     a) Move configuration to external file
+     b) Create self-installing script
+     c) Complete README, INSTALLING and other Documentation files
+     d) Write wiki guide and blog entry
+
+  Documentation
+  -------------
+
+  More detailed documentation will be provided soon at the project wiki
+  and eventually at developer website.
+  The most up-to-date documentation can be found at:
+  https://github.com/robpower/GmailFaxCheck/wiki
+
+  Installation
+  ------------
+
+  Please see the file called INSTALL.  Platform specific notes can be
+  found in README.platforms.
+
+  Licensing
+  ---------
+
+  Please see the file called LICENSE.
+
+  Contacts
+  --------
+
+     o If you have a concrete bug report for FaxGratis/GmailFaxChecker please go
+       to the GmailFaxChecker Github Issue Tracking system and submit your report:
+       <https://github.com/robpower/GmailFaxCheck/issues>
+
+      o If you want to participate in actively developing GmailFaxCheck or FaxGratis project
+       contact with the developer at 
+	dev [at] robpower.info 
+       or through GitHub website:
+	<https://github.com/robpower>

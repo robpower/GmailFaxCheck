@@ -1,0 +1,53 @@
+##########################
+# GmailFaxCheck INSTALL  #
+##########################
+#
+#    Copyright (C) Rob Power 2011-2012
+#    This file is part of FaxGratis/GmailFaxCheck.
+#
+#    FaxGratis/GmailFaxCheck is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    FaxGratis/GmailFaxCheck is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with FaxGratis/GmailFaxCheck.  If not, see <http://www.gnu.org/licenses/>.
+#
+#################################################################
+#	Filename: INSTALL					#
+#   Program Name: GmailFaxCheck					#
+#		  (FaxGratis project)				#		
+#	     URL: https://github.com/robpower/GmailFaxCheck   	#
+#        Version: 1.1.0						#
+#  Last Modified: 28/12/2011					#
+#    Description: Perl script for Ubuntu that checks for	#
+#		   new received fax2email message saved 	#
+#		  in a Gmail Label and prints them; 		#
+#		  can also check for Faxator receipts.		#
+#								#		
+#         Author: Rob Power <dev [at] robpower.info>		#
+#	 Website: http://blog.robpower.info 			#
+#		  https://github.com/robpower			#
+#		  https://www.gitorious.org/~robpower 		#
+#################################################################
+
+#To be completed
+
+# Install Instructions
+#---------------------
+A) Gmail Configuration:
+	1) Create a rule to archive received fax emails to a particular label (Ex. Fax)
+	2) Create a rule to archive Faxator receipt emails to a particular label (Ex. Fax)
+
+B) Program Installation:
+	1) Install and configure "lpr" with a working printer.
+	2) Configure parameters at the beginning of "GmailFaxCheck.py" file 
+	3) Create needed directories (Paths section)	
+	4) Eventually verify apparmor settings
+	5) Create a cron job that launchs the script on periodic interval
+	6) Enjoy!
