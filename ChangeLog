@@ -1,3 +1,9 @@
+    2013-08-26  Rob Power  <dev [at] robpower.info>
+
+    Release 1.2.1
+
+    * GmailFaxCheck.py (overall): corrected a bug to import integer settings
+
 2013-08-26  Rob Power  <dev [at] robpower.info>
 
     Release 1.2.0

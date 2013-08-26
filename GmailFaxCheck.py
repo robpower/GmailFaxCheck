@@ -1,6 +1,6 @@
 #!/usr/bin/python
 __author__="Rob Power"
-__date__ ="$26-aug-2013 14.53.58$"
+__date__ ="$26-aug-2013 18.00.00$"
 #
 #    Copyright (C) Rob Power 2011-2013
 #    This file is part of FaxGratis/GmailFaxCheck.
@@ -23,7 +23,7 @@ __date__ ="$26-aug-2013 14.53.58$"
 #   Program Name: GmailFaxCheck
 #		  (FaxGratis project)	
 #		  https://github.com/robpower/GmailFaxCheck 
-#	 Version: 1.2.0
+#	 Version: 1.2.1
 #         Author: Rob Power <dev [at] robpower.info>
 #	 Website: http://blog.robpower.info 
 #		  https://github.com/robpower 
@@ -78,8 +78,10 @@ Usage = """Usage: %s  --user <user> --password <password> --frequency <polling f
 
 """
 # Loads settings from "settings.conf" file
+cur_file =  os.path.abspath(__file__)
+cur_dir = os.path.dirname(cur_file)
 settings = SafeConfigParser()
-settings.read('settings.conf')
+settings.read(os.path.join(cur_dir,'settings.conf'))
 # ARCHIVE
 AttachDir = settings.get('archive','AttachDir')		# Attachment Temporary Directory Path
 ReceivedArchiveDir = settings.get('archive','ReceivedArchiveDir')	
@@ -90,13 +92,13 @@ receipts_folder_check = settings.get('gmail','receipts_folder_check') #Faxator R
 User = settings.get('gmail','User')			# IMAP4 user
 Password = settings.get('gmail','Password')		# User password
 # EXTRA
-DeleteMessages = settings.get('extra','DeleteMessages')
-SaveAttachments = settings.get('extra','SaveAttachments')	# Save all attachments found
-Frequency = settings.get('extra','Frequency')			# Mail server polling frequency
-exists = settings.get('extra','exists')
-name = settings.get('extra','name')
-set_read = settings.get('extra','set_read')                    # Put 1 for normal use, 0 for test purpose (does not mark email at end)
-DEBUG = settings.get('extra','DEBUG')			# Put 1 for debug output
+DeleteMessages = settings.getint('extra','DeleteMessages')
+SaveAttachments = settings.getint('extra','SaveAttachments')	# Save all attachments found
+Frequency = None #settings.get('extra','Frequency')			# Mail server polling frequency
+exists = settings.getint('extra','exists')
+name = settings.getint('extra','name')
+set_read = settings.getint('extra','set_read')                    # Put 1 for normal use, 0 for test purpose (does not mark email at end)
+DEBUG = settings.getint('extra','DEBUG')			# Put 1 for debug output
 
 def usage(reason=''):
 	sys.stdout.flush()
@@ -178,6 +180,29 @@ def walk_parts(msg, number, date, count, msgnum, status):
 				if DEBUG == 1:
 					print "Found HTML part: Ignoring..."
 				continue
+#			if DEBUG == 1:
+#				print "Found possible attachment [Type: " + part.get_content_type + "]: Processing"
+#					
+#			
+#			ctypes = part.get_params()
+#			if not ctypes:
+#				if DEBUG == 1:
+#					print "No CTypes"
+#				continue
+#			for key,val in ctypes:
+#				if DEBUG == 1:
+#					print "Key: " +  key
+#					print "Value: " + val
+#				if key.lower() == 'name':
+#					filename = gen_filename(val, part.get_content_type(), number,  date, status)
+#					print "Filename: " + filename 
+#					break
+#
+#			else:
+#				if DEBUG == 1:
+#					print "Found :" + part.get_content_type()
+#					print "CTypes:" + ctypes.length()
+#				continue
 		else:
 			if DEBUG == 1:
 				print "Found possible  attachment [Type: " + part.get_content_type() + "]: Processing..."
