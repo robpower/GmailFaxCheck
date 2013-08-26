@@ -1,3 +1,16 @@
+2013-08-26  Rob Power  <dev [at] robpower.info>
+
+    Release 1.2.0
+    
+    * settings.conf: added external settings file
+    * settings.conf (Extra Settings): added DEBUG option
+    * GmailFaxCheck.py (overall): added some useful DEBUG output
+    * GmailFaxCheck.py (walk_parts): added support for "inline" attachments (needed by Faxator changes)
+    * GmailFaxCheck.py (walk_parts): removed unuseful code
+    * fax_check.py: removed file (it was an old file duplicate)
+
+
+
 2011-12-28  Rob Power  <dev [at] robpower.info>
 
     Release 1.1.0

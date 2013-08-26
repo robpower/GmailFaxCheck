@@ -46,8 +46,9 @@ A) Gmail Configuration:
 
 B) Program Installation:
 	1) Install and configure "lpr" with a working printer.
-	2) Configure parameters at the beginning of "GmailFaxCheck.py" file 
-	3) Create needed directories (Paths section)	
-	4) Eventually verify apparmor settings
-	5) Create a cron job that launchs the script on periodic interval
+	2) Configure parameters in the "settings.conf" file 
+	3) Create needed directories (Paths section)
+	4) Copy the files in a choosen directory
+	5) Eventually verify apparmor settings
+	6) Create a cron job that launchs the script on periodic interval
 	6) Enjoy!

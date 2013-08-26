@@ -4,7 +4,7 @@
 --------------------------------------------------------------------------------------
 	DISCLAIMER:
 
-    Copyright (C) Rob Power 2011-2012
+    Copyright (C) Rob Power 2011-2013
     This file is part of FaxGratis/GmailFaxCheck.
 
     FaxGratis/GmailFaxCheck is free software: you can redistribute it and/or modify
@@ -44,10 +44,10 @@
   TODO
   ----
 
-     a) Move configuration to external file
-     b) Create self-installing script
-     c) Complete README, INSTALLING and other Documentation files
-     d) Write wiki guide and blog entry
+     
+     a) Create self-installing script
+     b) Complete README, INSTALLING and other Documentation files
+     c) Write wiki guide and blog entry
 
   Documentation
   -------------

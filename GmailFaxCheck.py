@@ -1,8 +1,8 @@
 #!/usr/bin/python
 __author__="Rob Power"
-__date__ ="$28-dec-2011 16.23.58$"
+__date__ ="$26-aug-2013 14.53.58$"
 #
-#    Copyright (C) Rob Power 2011-2012
+#    Copyright (C) Rob Power 2011-2013
 #    This file is part of FaxGratis/GmailFaxCheck.
 #
 #    FaxGratis/GmailFaxCheck is free software: you can redistribute it and/or modify
@@ -23,12 +23,12 @@ __date__ ="$28-dec-2011 16.23.58$"
 #   Program Name: GmailFaxCheck
 #		  (FaxGratis project)	
 #		  https://github.com/robpower/GmailFaxCheck 
-#	 Version: 1.1.0
+#	 Version: 1.2.0
 #         Author: Rob Power <dev [at] robpower.info>
 #	 Website: http://blog.robpower.info 
 #		  https://github.com/robpower 
 #		  https://www.gitorious.org/~robpower
-#  Last Modified: 28/12/2011
+#  Last Modified: 26/08/2013
 #    Description: This python script checks Gmail IMAP mail server
 #                 for the given account for incoming EuteliaVoip Faxes
 #                 and outgoing Faxator receipt.
@@ -64,6 +64,7 @@ import email.Utils
 from time import strftime
 import shutil
 import subprocess
+from ConfigParser import SafeConfigParser
 #from time import sleep
 
 
@@ -76,22 +77,26 @@ Usage = """Usage: %s  --user <user> --password <password> --frequency <polling f
 	 Example:  attdownload.py --user username --password password
 
 """
-
-AttachDir = '/srv/fax/to_print'		# Attachment Temporary Directory Path
-ReceivedArchiveDir = '/srv/fax/received'
-ReceiptsArchiveDir = '/srv/fax/sent'
-incoming_folder_check = 'Fax' #EuteliaVoip Gmail Label
-receipts_folder_check = 'Fax/Faxator/Ricevute' #Faxator Receipts Gmail Label
-User = 'user@gmail.com'	# IMAP4 user
-Password = 'secret'		# User password
-
-DeleteMessages = 0
-SaveAttachments = 1		# Save all attachments found
-Frequency = None		# Mail server polling frequency
-exists = 0
-name = 0
-set_read = 1                    # Put 1 for normal use, 0 for test purpose (does not mark email at end)
-
+# Loads settings from "settings.conf" file
+settings = SafeConfigParser()
+settings.read('settings.conf')
+# ARCHIVE
+AttachDir = settings.get('archive','AttachDir')		# Attachment Temporary Directory Path
+ReceivedArchiveDir = settings.get('archive','ReceivedArchiveDir')	
+ReceiptsArchiveDir = settings.get('archive','ReceiptsArchiveDir')	
+# GMAIL
+incoming_folder_check = settings.get('gmail','incoming_folder_check')
+receipts_folder_check = settings.get('gmail','receipts_folder_check') #Faxator Receipts Gmail Label
+User = settings.get('gmail','User')			# IMAP4 user
+Password = settings.get('gmail','Password')		# User password
+# EXTRA
+DeleteMessages = settings.get('extra','DeleteMessages')
+SaveAttachments = settings.get('extra','SaveAttachments')	# Save all attachments found
+Frequency = settings.get('extra','Frequency')			# Mail server polling frequency
+exists = settings.get('extra','exists')
+name = settings.get('extra','name')
+set_read = settings.get('extra','set_read')                    # Put 1 for normal use, 0 for test purpose (does not mark email at end)
+DEBUG = settings.get('extra','DEBUG')			# Put 1 for debug output
 
 def usage(reason=''):
 	sys.stdout.flush()
@@ -158,29 +163,38 @@ def error(reason):
 
 def walk_parts(msg, number, date, count, msgnum, status):
 	for part in msg.walk():
+
 		if part.is_multipart():
+			if DEBUG == 1:
+				print "Found header part: Ignoring..."
 			continue
 		dtypes = part.get_params(None, 'Content-Disposition')
 		if not dtypes:
 			if part.get_content_type() == 'text/plain':
+				if DEBUG == 1:
+					print "Found plaintext part: Ignoring..."
 				continue
-			ctypes = part.get_params()
-			if not ctypes:
-				continue
-			for key,val in ctypes:
-				if key.lower() == 'name':
-					filename = gen_filename(val, part.get_content_type(), number,  date, status)
-					break
-			else:
+			if part.get_content_type() == 'text/html' :
+				if DEBUG == 1:
+					print "Found HTML part: Ignoring..."
 				continue
 		else:
+			if DEBUG == 1:
+				print "Found possible  attachment [Type: " + part.get_content_type() + "]: Processing..."
 			attachment,filename = None,None
 			for key,val in dtypes:
 				key = key.lower()
 				if key == 'filename':
 					filename = val
-				if key == 'attachment':
+					if DEBUG == 1:
+						print "[Filename: " + filename + "]"
+				if key == 'attachment' or  key == 'inline':
 					attachment = 1
+					if DEBUG ==1:
+						print "[Attach. type: " + key + "]"
+				else:
+					if DEBUG == 1:
+						print "Key: " + key
 			if not attachment:
 				continue
 			filename = gen_filename(filename, part.get_content_type(), number, date, status)
@@ -266,8 +280,13 @@ def process_message(text, msgnum,folder_to_check):
 
 	attachments_found = walk_parts(msg, number, date, 0, msgnum, status)
 	if attachments_found:
+		if DEBUG == 1:
+			print "Attachments found: %d" % attachments_found
+
 		return ''
 	else:
+		if DEBUG == 1:
+			print "No attachments found"
 		return None
 
 
@@ -295,6 +314,9 @@ def process_server(host,folder_to_check):
 		typ,val = sys.exc_info()[:2]
 		error('Could not connect to IMAP server "%s": %s'
 				% (host, str(val)))
+	
+	if DEBUG==1:
+		print mbox
 
 	if User or mbox.state != 'AUTH':
 		user = User or getpass.getuser()
@@ -313,9 +335,20 @@ def process_server(host,folder_to_check):
 		error('Could not open INBOX for "%s" on "%s": %s'
 			% (user, host, str(dat)))
 
-	mbox.select(folder_to_check)
+	if DEBUG == 1:
+		print "Selecting Folder " + folder_to_check
+
+	sel_response = mbox.select(folder_to_check)
 	#mbox.select(readonly=(DeleteMessages))
+
+	if DEBUG == 1:
+		print sel_response
+
 	typ, dat = mbox.search(None, "UNSEEN")
+
+	if DEBUG == 1:
+		print typ, dat
+
 	#mbox.create("DownloadedMails")
 
 	#archiveme = []
@@ -324,6 +357,7 @@ def process_server(host,folder_to_check):
 		if typ != 'OK':
 			error(dat[-1])
 		message = dat[0][1]
+
 		if process_message(message, num,folder_to_check) == '':
                         if set_read == 1:
                                 mbox.store(num, '+FLAGS', '\\Seen') # Mark Email as Read
